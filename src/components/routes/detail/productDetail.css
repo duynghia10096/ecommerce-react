@@ -1,0 +1,155 @@
+/* Global styles */
+.box-container {
+    padding: 1rem;
+}
+
+.product-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.large-image-container {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.large-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.small-images {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.small-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.product-details {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-name {
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.product-price {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.tax-info {
+    font-size: 1rem;
+    font-weight: 700;
+    color: green;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-label {
+    font-size: 1.2rem;
+    font-weight: lighter;
+}
+
+.quantity-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.add-to-bag-btn, .proceed-to-bag-btn {
+    height: 44px;
+    font-weight: bold;
+}
+
+.add-to-bag-btn {
+    background-color: #AB0000;
+    color: white;
+}
+
+.proceed-to-bag-btn {
+    font-weight: bold;
+}
+
+/* Review section styles */
+.review-section {
+    margin-top: 2rem;
+}
+
+.rating-overview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 5px;
+}
+
+
+.large-image-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.large-image {
+    width: 100%;
+    max-width: 600px; /* Adjust as needed */
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.small-images {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.small-image {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    object-fit: cover;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.small-image:hover {
+    transform: scale(1.1);
+    border-color: #aaa;
+}
+
+.quantity-controls .MuiButton-root {
+    margin: 0 5px;
+}
+
+.action-buttons .MuiButton-root {
+    margin-top: 10px;
+}
