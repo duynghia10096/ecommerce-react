@@ -56,12 +56,12 @@ const shippingOptionsData = {
 
 export function ShippingOptions() {
     const classes = useStyles();
-    const shoppingBagProducts = useSelector(state => state.shoppingBagProductReducer)
+    const shoppingBagProducts = useSelector(state => state.shoppingBagProductReducer.data)
     const dispatch = useDispatch()
     const [shippingOptionState, setShippingOptionState] = React.useState( {value: 'free', submitted: false})
 
     const handleRadioBtnChange = (event) => {
-        log.info(`event.target.value = ${event.target.value}`)
+        
         setShippingOptionState({value: event.target.value, submitted: false})
 
         let deliveryPrice = null

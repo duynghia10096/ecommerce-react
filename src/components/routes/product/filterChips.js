@@ -15,7 +15,7 @@ const FilterChips = () => {
     const selectedApparels = useSelector(state => state.selectedFilterAttributesReducer.apparels)
     const selectedBrands = useSelector(state => state.selectedFilterAttributesReducer.brands)
     const selectedPriceRanges = useSelector(state => state.selectedFilterAttributesReducer.prices)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -35,10 +35,10 @@ const FilterChips = () => {
      */
     const addChips = (selectedAttrList, categoryId) => {
         let chipBoxList = []
-        log.debug(`[FilterChips] addBoxTagToList boxDataList = ${JSON.stringify(selectedAttrList)}`)
+        
 
         selectedAttrList.forEach(({id,value}) => {
-            log.debug(`[FilterChips] renderChipBoxes id = ${id}, value = ${value}`)
+            
             chipBoxList.push(
                 <Box key={`${categoryId}-${id}`} width="auto" display="inline-block" p={0.2}>
                     <Chip label={value}
@@ -73,11 +73,11 @@ const FilterChips = () => {
         }
 
         if (chipBoxList) {
-            log.debug(`[FilterChips] renderChipBoxes chipBoxList = ${chipBoxList}`)
+            
             return chipBoxList
         }
 
-        log.info(`[FilterChips] renderChipBoxes is returning null`)
+        
         return null
     }
 
@@ -89,8 +89,7 @@ const FilterChips = () => {
      * @param attributeName
      */
     const findValueAndDispatch = (id, selectedAttrList, attributeName) => {
-        log.debug(`[FilterChips] findValueAndDispatch id = ${id}`+
-            `, attributeName = ${attributeName}, selectedAttrList = ${JSON.stringify(selectedAttrList)}`)
+        
 
         for (let i = 0; i < selectedAttrList.length; i++) {
             if(selectedAttrList[i].id === parseInt(id)) {
@@ -153,7 +152,7 @@ const FilterChips = () => {
         }
     }
 
-    log.info(`[FilterChips] Rendering FilterChips Component`)
+    
     return (
         <>
             {renderChipBoxes()}

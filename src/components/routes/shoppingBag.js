@@ -27,7 +27,7 @@ import { useNavigate } from 'react-router-dom';
 
 function ShoppingBag(props) {
     const addToCart = useSelector(state => state.addToCartReducer)
-    const shoppingBagProducts = useSelector(state => state.shoppingBagProductReducer)
+    const shoppingBagProducts = useSelector(state => state.shoppingBagProductReducer.data)
     const dispatch = useDispatch()
     const [itemRemovalModalState, setItemRemovalModalState] = useState({active: false, productId: null})
     let cartTotal = 0

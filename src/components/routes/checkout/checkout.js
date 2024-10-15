@@ -92,7 +92,7 @@ function Checkout(props) {
     }
 
     useEffect(() => {
-        log.info(`[Checkout]: Component did mount...`)
+        
         setIsLoading(false)
 
         // eslint-disable-next-line

@@ -15,14 +15,14 @@ const resetStates = [RESET_ADD_TO_CART, RESET_CART_TOTAL, RESET_DELIVERY_CHARGES
 
 export const SuccessPayment = () => {
     const dispatch = useDispatch()
-    const shoppingBagProducts = useSelector(state => state.shoppingBagProductReducer)
+    const shoppingBagProducts = useSelector(state => state.shoppingBagProductReducer.data)
     let cartTotal = useSelector(state => state.cartTotalReducer)
     const shippingAddressForm = useSelector(state => state.form.shippingAddressForm ?
         state.form.shippingAddressForm.values : null)
     const shippingOption = useSelector(state => state.shippingOptionReducer)
     const addToCart = useSelector(state => state.addToCartReducer)
     const deliveryCharges = useSelector(state => state.deliveryChargesReducer)
-    const paymentResponse = useSelector(state => state.paymentResponseReducer)
+    // const paymentResponse = useSelector(state => state.paymentResponseReducer)
 
     useEffect(() => {
 
@@ -40,20 +40,20 @@ export const SuccessPayment = () => {
         // eslint-disable-next-line
     }, [])
 
-    log.info(`paymentResponse = ${JSON.stringify(paymentResponse)}`)
-    if (paymentResponse.error) {
-        // if user land on this page with an payment error
-        // then we cannot proceed further...
-        return <GenericErrorMsg/>
-    }
+    // log.info(`paymentResponse = ${JSON.stringify(paymentResponse)}`)
+    // if (paymentResponse.error) {
+    //     // if user land on this page with an payment error
+    //     // then we cannot proceed further...
+    //     return <GenericErrorMsg/>
+    // }
 
     if (!shippingAddressForm) {
         return <BadRequest/>
     }
 
-    if (!paymentResponse.hasOwnProperty("order_id")) {
-        return null
-    }
+    // if (!paymentResponse.hasOwnProperty("order_id")) {
+    //     return null
+    // }
 
     const renderShippingAddress = () => {
         const shippingAddressAttributes = [
@@ -94,9 +94,9 @@ export const SuccessPayment = () => {
                     <Grid item>
                         {product.name}
                     </Grid>
-                    <Grid item>
+                    {/* <Grid item>
                         {product.productBrandCategory.type}
-                    </Grid>
+                    </Grid> */}
                     <Grid item>
                         {`Qty: ${qty} X ${product.price} = ${product.price * qty}`}
                     </Grid>
@@ -118,19 +118,19 @@ export const SuccessPayment = () => {
                   style={{border: "1px solid green", padding: "2rem", fontSize: "2rem", fontWeight: "bold"}}>
                 Payment Successful. Thank You For Shopping at Shoppers.
             </Grid>
-            <Grid item xs={12} style={{marginTop: "2rem", fontWeight: "bold"}}>
+            {/* <Grid item xs={12} style={{marginTop: "2rem", fontWeight: "bold"}}>
                 {`Your order is placed successfully. Your order id is ${paymentResponse.order_id}.`}
-            </Grid>
+            </Grid> */}
 
             <Grid item container spacing={2}>
                 <Grid item container justify="flex-end" xs={2}>
                     Receipt:
                 </Grid>
-                <Grid item container xs={8} direction="column" style={{fontWeight: "bold"}}>
+                {/* <Grid item container xs={8} direction="column" style={{fontWeight: "bold"}}>
                     <a href={paymentResponse.receipt_url} target="_blank" rel="noopener noreferrer">
                         Order-Receipt
                     </a>
-                </Grid>
+                </Grid> */}
             </Grid>
 
             <Grid item container spacing={2}>
@@ -146,14 +146,14 @@ export const SuccessPayment = () => {
                 <Grid item container justify="flex-end" xs={2}>
                     Payment Details:
                 </Grid>
-                <Grid item container xs={8} direction="column" style={{fontWeight: "bold"}}>
+                {/* <Grid item container xs={8} direction="column" style={{fontWeight: "bold"}}>
                     <Grid item>
                         {`${paymentResponse.brand.toUpperCase()} ending in ${paymentResponse.last4}`}
                     </Grid>
                     <Grid item>
                         {`Exp: ${paymentResponse.exp_month}/${paymentResponse.exp_year}`}
                     </Grid>
-                </Grid>
+                </Grid> */}
             </Grid>
 
             <Grid item container spacing={2}>

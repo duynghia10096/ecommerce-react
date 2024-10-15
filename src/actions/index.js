@@ -196,20 +196,15 @@ export const signUp = formValues => async dispatch => {
 
 export const sendPaymentToken = (token) => async dispatch => {
     log.info(`Token = ${JSON.stringify(token)}`)
-    if (!token || (token && !token.hasOwnProperty("id"))) {
-        dispatch({
-            type: PAYMENT_RESPONSE_ERROR,
-            payload: {errorMsg: "Unable to fetch token. Try again later"}
-        })
-    }
+    // if (!token || (token && !token.hasOwnProperty("id"))) {
+    //     dispatch({
+    //         type: PAYMENT_RESPONSE_ERROR,
+    //         payload: {errorMsg: "Unable to fetch token. Try again later"}
+    //     })
+    // }
 
-    let url
-    if (process.env.REACT_APP_PAYMENT_SERVICE_URL) {
-        url = `${process.env.REACT_APP_PAYMENT_SERVICE_URL}/payment`
-    } else {
-        url = `http://localhost:${process.env.REACT_APP_PAYMENT_SERVICE_PORT}/payment`
-    }
-
+    let url = `${process.env.REACT_APP_PAYMENT_SERVICE_URL}`;
+   
     let config = {
         method: 'post',
         url: url,
@@ -219,39 +214,42 @@ export const sendPaymentToken = (token) => async dispatch => {
         data: JSON.stringify(token)
     };
 
-    log.info(`URL = ${config.url}`)
 
-    axios(config)
-        .then(function (response) {
-            console.log(JSON.stringify(response.data));
-            let paymentResponse = {
-                ...response.data,
-                last4: token.card.last4, exp_year: token.card.exp_year,
-                exp_month: token.card.exp_month, brand: token.card.brand
-            }
+   
+    try {
+        const response = await axios(config);
+        
+        let paymentResponse = {
+            ...response.data
+        };
 
-            if (paymentResponse.payment_failed) {
-                // history.push(`/checkout/cancel-payment/${response.data.charge_id}`)
-                window.location.replace(`/checkout/cancel-payment/${response.data.charge_id}`)
-            } else {
-                // history.push(`/checkout/success-payment/${response.data.charge_id}`)
-                Cookies.remove(CART_TOTAL_COOKIE)
-                Cookies.remove(SHOPPERS_PRODUCT_INFO_COOKIE)
-            }
+        if (response.data.payment_failed) {
+            // Redirect to cancel payment page
+            token.navigate(`/checkout/cancel-payment/${response.data.charge_id}`);
+        } else {
+            // Redirect to the receipt URL
+            token.navigate(`/checkout/success-payment/${response.data.charge_id}`);// Redirect to PayPal's receipt URL
+            // or you could navigate to a local success page
+            // navigate(`/checkout/success-payment/${response.data.charge_id}`);
 
-            dispatch({
-                type: PAYMENT_RESPONSE,
-                payload: {...paymentResponse, error: false, errorMsg: null}
-            })
+            // Clean up cookies if necessary
+            Cookies.remove(CART_TOTAL_COOKIE);
+            Cookies.remove(SHOPPERS_PRODUCT_INFO_COOKIE);
+        }
 
-        })
-        .catch(function (error) {
-            log.error(`[sendPaymentToken]: Error = ${error} `)
-            dispatch({
-                type: PAYMENT_RESPONSE_ERROR,
-                payload: {errorMsg: "Something Went Wrong"}
-            })
+        dispatch({
+            type: PAYMENT_RESPONSE,
+            payload: { ...paymentResponse, error: false, errorMsg: null },
         });
+
+    } catch (error) {
+        log.error(`[sendPaymentToken]: Error = ${error}`);
+        dispatch({
+            type: PAYMENT_RESPONSE_ERROR,
+            payload: { errorMsg: "Something Went Wrong" },
+        });
+    }
+    
 }
 
 

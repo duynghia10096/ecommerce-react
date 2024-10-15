@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { connect } from 'react-redux';
 import { getDataViaAPI } from '../../../actions'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import LocalMallIcon from '@material-ui/icons/LocalMall';
+
 import Cookies from 'js-cookie';
 import { ADD_TO_CART, SELECT_PRODUCT_DETAIL } from "../../../actions/types";
 import RemoveIcon from '@material-ui/icons/Remove';

@@ -165,10 +165,10 @@ export const selectProductDetailReducer = (state = {isLoading: true}, action) =>
     }
 };
 
-export const shoppingBagProductReducer = (state = {isLoading: true}, action) => {
+export const shoppingBagProductReducer = (state = {isLoading: true, data: {}}, action) => {
     switch (action.type) {
         case LOAD_SHOPPING_BAG_PRODUCTS:
-            return action.payload
+            return {...state, data:action.payload}
         case RESET_SHOPPING_BAG_PRODUCTS:
             return {isLoading: false, data: {}}
         default:

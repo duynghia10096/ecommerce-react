@@ -47,7 +47,7 @@ function Product() {
         return navigate(PRODUCT_BY_CATEGORY_DATA_API + "?q=page=0," + MAX_PRODUCTS_PER_PAGE)
     }
 
-    log.info("[Product] Rendering Product Component.")
+   
     return (
         <Grid container>
             <DocumentTitle title="Shoppers Products"/>
