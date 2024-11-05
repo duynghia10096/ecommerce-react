@@ -3,7 +3,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import FilterNavBar from "./filterSideNavbar/filterNavBar";
 import FilterProductsDisplay from "./filterProductDisplay";
-import log from 'loglevel';
+
 import FilterChips from "./filterChips";
 import {Divider} from "@material-ui/core";
 import FilterDropdown from "./filterDropdown";

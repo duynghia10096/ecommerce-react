@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import log from 'loglevel';
+
 import {Box, Grid} from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -31,12 +31,12 @@ export default function CheckboxMoreButton(props) {
 
     // No need to render this component if the list is not present
     if (!props.checkboxList) {
-        log.debug(`[CheckboxMoreButton] apparelList is null`)
+     
         return null
     }
 
     const handleCheckBoxChange = (id, value) => {
-        log.info(`[CheckboxMoreButton] handleCheckBoxChange(id) = ${id}, value = ${value}`)
+       
         props.checkboxChangeHandler(id, value)
     }
 
@@ -91,9 +91,7 @@ export default function CheckboxMoreButton(props) {
     }
 
 
-    log.debug(`[CheckboxMoreButton] selectedApparels = ${JSON.stringify(props.selectedCheckboxList)}`)
-
-    log.info(`[CheckboxMoreButton] Rendering CheckboxMoreButton Component`)
+   
 
     return (
         <>

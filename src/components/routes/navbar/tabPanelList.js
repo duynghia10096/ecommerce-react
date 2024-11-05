@@ -1,7 +1,7 @@
 import React from 'react';
 import useTabStyles from "../../../styles/materialUI/tabStyles";
 import {useDispatch, useSelector} from 'react-redux';
-import log from "loglevel";
+
 import {Link} from "react-router-dom";
 import {MAX_PRODUCTS_PER_PAGE, TAB_CONFIG} from "../../../constants/constants";
 import {Box} from "@material-ui/core";
@@ -30,7 +30,7 @@ function TabPanel(props) {
     }
 
     const mouseLeaveHandler = () => {
-        log.info(`[TabPanel]: dispatching HANDLE_TAB_HOVER_EVENT with index and hover as false`)
+       
         dispatch({
             type: HANDLE_TAB_HOVER_EVENT, payload: {
                 index: false,
@@ -41,10 +41,10 @@ function TabPanel(props) {
 
     const renderTabPanel = (brandList, apparelList) => {
         if(!brandList) {
-            log.info(`[TabPanel]: brandList is null = ${brandList}`)
+           
             return <BadRequest/>
         } else if(!apparelList) {
-            log.info(`[TabPanel]: apparelList is null = ${apparelList}`)
+          
             return <BadRequest/>
         }
 
@@ -91,7 +91,7 @@ export const TabPanelList = () => {
     const {index} = useSelector(state => state.tabHoverEventReducer);
 
     if (index === -1) {
-        log.debug(`[TabPanelList]: index is null`)
+       
         return null;
     }
 
@@ -101,7 +101,7 @@ export const TabPanelList = () => {
         })
     }
 
-    log.info(`[TabPanelList]: Rendering TabPanelList Component with index = ${index}`)
+   
     return (
         <div className={classes.root}>
             {renderTabPanels()}

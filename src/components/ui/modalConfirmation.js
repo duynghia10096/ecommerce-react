@@ -1,11 +1,11 @@
 import React from 'react';
-import log from 'loglevel';
+
 import {Grid, Divider} from "@material-ui/core";
 import Modal from "./modal";
 
 export const ModalConfirmation = (props) => {
 
-    log.info("[ModalConfirmation] Rendering ModalConfirmation Component...")
+   
     const renderAddressRemovalConfirmation = () => {
         return (
             <Grid container direction="column">

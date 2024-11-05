@@ -6,17 +6,17 @@ import {
     StyledSmallMenu
 } from "../../styles/semanticUI/customStyles";
 import "../../styles/semanticUI/commonStyles.css"
-import log from "loglevel";
+
 
 const DropdownSection = props => {
 
     if (!props.attrList) {
-        log.debug(`[DropdownSection]: props.options = ${props.attrList}`)
+       
         return null
     }
 
     let optionList = props.attrList.map(({id, type}) => {
-        log.trace(`[DropdownSection]: modifiedOptions id = ${id}, type = ${type}`)
+       
         return {
             key: id,
             text: type,
@@ -25,7 +25,7 @@ const DropdownSection = props => {
     })
 
     const handleDropdownChange = (e, {id, value}) => {
-        log.info(`[DropdownSection]: handleDropdownChange`)
+       
         props.onChangeHandler(value, optionList[value - 1].text, id.split("-")[0])
     }
 
@@ -58,7 +58,7 @@ const DropdownSection = props => {
         )
     }
 
-    log.debug(`[DropdownSection]: Rendering DropdownSection Component`)
+   
     return (
         <>
             {props.size && props.size.localeCompare("sm") === 0? renderSmallDropdown(): renderLargeDropdown()}

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import SignUpForm from "./signUpForm"
 import {Grid} from "@material-ui/core";
-import log from "loglevel";
+
 import {useDispatch, useSelector} from "react-redux";
 import {Dimmer, Loader} from "semantic-ui-react";
 import {DocumentTitle} from "../../ui/documentTitle";
@@ -17,7 +17,7 @@ const SignUp = () => {
     }
 
     useEffect(() => {
-        log.info(`[SignUp]: Component did mount...`)
+       
         setIsLoading(false)
 
         // eslint-disable-next-line
@@ -26,7 +26,7 @@ const SignUp = () => {
     useEffect(() => {
 
         return () => {
-            log.info(`[SignIn] Component will unmount...`)
+           
             dispatch({
                 type: RESET_SIGN_UP
             })
@@ -35,7 +35,7 @@ const SignUp = () => {
         // eslint-disable-next-line
     }, [])
 
-    log.info(`[SignUp]: Rendering SignUp Component`)
+   
 
     return (
         <Grid container justify="center" style={{paddingTop: "2rem"}}>

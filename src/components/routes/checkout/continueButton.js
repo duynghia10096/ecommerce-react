@@ -1,5 +1,5 @@
 import React from 'react';
-import log from 'loglevel';
+
 import {Button, Grid, Hidden} from "@material-ui/core";
 
 const continueButtonStyle = {
@@ -36,8 +36,7 @@ function ContinueButton(props) {
         )
     }
 
-    log.info("[Continue Button] Rendering Continue Button Component.")
-
+   
     return (
         <>
             <Hidden xsDown>

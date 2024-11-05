@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import log from 'loglevel';
+
 import {Button, Divider, Grid} from "@material-ui/core";
 import Modal from "../ui/modal"
 
@@ -8,9 +8,9 @@ function AlertModal(props) {
     const [alertConfirmation, setAlertConfirmation] = useState(false)
 
     useEffect(() => {
-        log.info(`[AlertModal] Component Did mount`)
+        
         if(props.enable) {
-            log.info(`[AlertModal] enabling the alert confirmation`)
+          
             setAlertConfirmation(true)
         }
 
@@ -55,7 +55,7 @@ function AlertModal(props) {
                       closeHandler={closeModalHandler}/>
     }
 
-    log.info(`[AlertModal] Rendering AlertModal Component. alertConfirmation = ${alertConfirmation}`)
+   
 
     return (
         <>

@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import log from "loglevel";
+
 import {Box} from "@material-ui/core";
 import {useSelector} from "react-redux";
 
@@ -29,23 +29,23 @@ export default function SortedCheckboxList(props) {
         state.savedSortedListReducer.hasOwnProperty(props.propName) ? state.savedSortedListReducer[props.propName] : null)
 
     if (!props.attrList) {
-        log.debug(`[SortedCheckboxList] props.attrList is null`)
+      
         return null
     }
 
     if (!savedSortedAttrList) {
-        log.info(`[SortedCheckboxList] savedSortedAttrList is empty for prop = ${props.propName}`)
+      
         return null
     }
 
     const handleToggle = id => () => {
-        log.debug(`[SortedCheckboxList] handleToggle for CheckboxList value = ${id}`)
+        
 
         let value
         for (let i = 0; i < props.attrList.length; i++) {
             if (id === props.attrList[i].id) {
                 value = props.attrList[i].value
-                log.debug(`[SortedCheckboxList] handleToggle for CheckboxList value = ${value}`)
+              
             }
         }
 
@@ -53,7 +53,7 @@ export default function SortedCheckboxList(props) {
     };
 
     const renderCheckBoxList = () => {
-        log.debug(`[SortedCheckboxList] renderCheckBoxList props.selectedAttributes = ${JSON.stringify(props.values)}`)
+       
 
         let selectedIdList = []
         if (props.selectedAttrList.length > 0) {
@@ -113,7 +113,7 @@ export default function SortedCheckboxList(props) {
         })
     }
 
-    log.debug(`[SortedCheckboxList] Rendering CheckboxList Component`)
+  
     return (
         <Box display="flex" style={{
             height: "70vh",

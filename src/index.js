@@ -10,7 +10,7 @@ import {thunk} from "redux-thunk";
 import 'semantic-ui-css/semantic.min.css'
 import '../src/styles/library/swiper/swiper.css';
 import '../src/styles/library/swiper/swiper.min.css';
-import log from 'loglevel';
+
 import ErrorBoundary from "./ErrorBoundary";
 
 let composeEnhancers
@@ -19,11 +19,10 @@ let composeEnhancers
 if (process.env.REACT_APP_ENVIRONMENT === "dev") {
 
     // by default set the level to info
-    log.setLevel("info")
+  
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose();
 } else {
-    console.log = console.error = console.warn = function () {}
-    log.disableAll(true)
+    
     composeEnhancers = compose();
 }
 

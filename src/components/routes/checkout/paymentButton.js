@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
-import StripeCheckout from 'react-stripe-checkout';
+
 import { Button, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import { sendPaymentToken } from "../../../actions"
-import log from 'loglevel';
+
 import AlertModal from "../../ui/alertModal";
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { AUTH_DETAILS_COOKIE } from '../../../constants/cookies';
+
 
 class PaymentButton extends Component {
 
     _GrandTotal = 0
+
 
     getGrandTotal = () => {
         this._GrandTotal = (this.props.cartTotal + this.props.deliveryCharges) * 100
@@ -18,10 +22,11 @@ class PaymentButton extends Component {
     }
 
     handleApprove = (data, actions) => {
-        return actions.order.capture().then((details) => {
-            log.info("[PaymentButton] handleApprove - Payment successful", details);
-            this.props.loadingHandler(true);
+        return actions.order.capture().then(async (details) => {
 
+            const authData = localStorage.getItem(AUTH_DETAILS_COOKIE);
+            const shippingPrice = parseFloat(this.props.shippingOption.price.replace(/[^\d.-]/g, ''));
+            const username = JSON.parse(authData);
             const token = {
                 id: details.id,
                 amount: this._GrandTotal,
@@ -29,11 +34,59 @@ class PaymentButton extends Component {
                 address: this.props.shippingAddressForm.values,
                 addToCart: this.props.addToCart,
                 shippingOption: this.props.shippingOption,
-                navigate: this.props.navigate
+                navigate: this.props.navigate,
             };
 
-            this.props.sendPaymentToken(token);
+            const paymentResponse = await this.props.sendPaymentToken(token);
+
+            const cartItems = Object.keys(this.props.shoppingBagProducts.data).map(key => {
+                const product = this.props.shoppingBagProducts.data[key];
+
+                return {
+                    productId: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: this.props.addToCart.productQty[key],
+                    stock: product.availableQuantity,
+                    imageURL: product.imageURL
+                };
+            })
+            const orderData = {
+                userId: username.userInfo.id,
+                price: this._GrandTotal,
+                totalPrice: this._GrandTotal,
+                status: "PENDING",
+                address: this.props.shippingAddressForm.values.addressLine1,
+                city: this.props.shippingAddressForm.values.city,
+                state: this.props.shippingAddressForm.values.stateCode,
+                shippingPrice: shippingPrice,
+                phoneNo: this.props.shippingAddressForm.phoneNumber,
+                cartItemDtos: cartItems
+            }
+            if (paymentResponse.payment_failed === false) {
+               orderData.paymentStatus = "Paid";
+            } else {
+                orderData.paymentStatus = "Not Paid"
+            }   
+
+            console.log(orderData);
+            try {
+                const response = await axios.post('http://localhost:5000/api/order/saveOrder', orderData);
+                if (response.status === 200) {
+                    // Xử lý khi API trả về thành công
+                    console.log('Order saved successfully', response.data);
+                    
+                } else {
+                    // Xử lý khi API trả về lỗi
+                    console.error('Failed to save order', response.data);
+                }
+            } catch (error) {
+                console.error('Error saving order', error);
+            }
+
+
         });
+
     };
 
     // onToken = (token) => {
@@ -52,7 +105,7 @@ class PaymentButton extends Component {
     // }
 
     renderButton = () => {
-        log.info(`[PaymentButton] renderButton.....`)
+
         return (
             <Grid container justify="center" style={{ padding: "2rem 0 2rem 0" }}>
                 <Grid item lg={9}>
@@ -71,8 +124,11 @@ class PaymentButton extends Component {
     }
 
     render() {
-        log.info(`[PaymentButton] Rendering PaymentButton Component...error = ${this.props.paymentResponse.error}`)
 
+        console.log("Shopping Bag", this.props.shoppingBagProducts);
+        console.log("shippingAddressForm", this.props.shippingAddressForm);
+        console.log("shippingOption", this.props.shippingOption);
+        console.log("Add to cart", this.props.addToCart)
         return (
             <>
                 <AlertModal title="Payment Error"
@@ -117,7 +173,8 @@ const mapStateToProps = (state) => {
         shippingOption: state.shippingOptionReducer,
         addToCart: state.addToCartReducer,
         deliveryCharges: state.deliveryChargesReducer,
-        paymentResponse: state.paymentResponseReducer
+        paymentResponse: state.paymentResponseReducer,
+        shoppingBagProducts: state.shoppingBagProductReducer.data
     })
 }
 

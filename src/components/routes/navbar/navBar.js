@@ -21,7 +21,7 @@ import TabList from "./tabList";
 import {Link, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {ADD_TO_CART, LOAD_TABS_DATA, SET_GOOGLE_AUTH} from "../../../actions/types";
-import log from "loglevel";
+
 import Hidden from "@material-ui/core/Hidden";
 import BagButton from "./bagButton";
 import {tabsDataReducer} from "../../../reducers/screens/commonScreenReducer";
@@ -59,11 +59,18 @@ const NavBar = props => {
      * set the cart from saved Cookie
      */
     const setAddToCartValuesFromCookie = () => {
-        let savedProductsFromCookie = JSON.stringify(Cookies.get(SHOPPERS_PRODUCT_INFO_COOKIE))
+        let savedProductsFromCookie = localStorage.getItem(SHOPPERS_PRODUCT_INFO_COOKIE)
         let totalQuantity = 0
-        if (savedProductsFromCookie) {
-            if (typeof savedProductsFromCookie === "string") {
+        if ( savedProductsFromCookie) {
+            // if (typeof savedProductsFromCookie === "string") {
+            //     savedProductsFromCookie = JSON.parse(savedProductsFromCookie);
+            // }
+            try {
+                // Kiểm tra nếu `savedProductsFromCookie` là chuỗi hợp lệ
                 savedProductsFromCookie = JSON.parse(savedProductsFromCookie);
+            } catch (e) {
+                console.error("Invalid JSON format for savedProductsFromCookie:", e);
+                return; // Nếu không phải JSON hợp lệ, dừng hàm ở đây
             }
 
             if (savedProductsFromCookie.productQty) {
@@ -72,14 +79,14 @@ const NavBar = props => {
                 }
                 savedProductsFromCookie.totalQuantity = totalQuantity;
     
-                log.info(`[BagButton] savedProductsFromCookie = ${JSON.stringify(savedProductsFromCookie)}`);
+              
     
                 dispatch({
                     type: ADD_TO_CART,
                     payload: savedProductsFromCookie,
                 });
             } else {
-                log.error("productQty không tồn tại trong savedProductsFromCookie");
+               
             }
         }
     }
@@ -88,7 +95,7 @@ const NavBar = props => {
      * This will execute only once.
      */
     useEffect(() => {
-        log.info(`[NavBar]: Component did update.`)
+       
 
         // if (!googleAuthReducer.oAuth) {
         //     window.gapi.load('client:auth2', () => {
@@ -111,17 +118,17 @@ const NavBar = props => {
         //     });
         // }
 
-        // if (isSignedIn === null) {
-        //     // if user is not signed in then signed it in using
-        //     // account details from the cookie.
+        if (isSignedIn === null) {
+            // if user is not signed in then signed it in using
+            // account details from the cookie.
 
-        //     log.info(`[NavBar]: isSignedIn is null`)
-        //     let savedAuthDetails = Cookies.get(AUTH_DETAILS_COOKIE)
-        //     if (savedAuthDetails) {
-        //         log.info(`[NavBar]: setting Auth Details from Cookie`)
-        //         props.setAuthDetailsFromCookie(JSON.parse(savedAuthDetails))
-        //     }
-        // }
+            
+            let savedAuthDetails = localStorage.getItem(AUTH_DETAILS_COOKIE)
+            if (savedAuthDetails) {
+                
+                props.setAuthDetailsFromCookie(JSON.parse(savedAuthDetails))
+            }
+        }
 
         // tabs data is not loaded then load it.
         if (!tabsAPIData.hasOwnProperty("data")) {
@@ -138,21 +145,19 @@ const NavBar = props => {
     }, [ tabsDataReducer]);
 
     if (tabsAPIData.isLoading) {
-        log.info("[NavBar]: loading")
+        
         return null
     } else {
         if (tabsAPIData.hasOwnProperty("data")) {
             if (Object.entries(tabsAPIData.data).length !== TABS_API_OBJECT_LEN) {
 
-                log.info(`[NavBar]: tabsAPIData.data length didn't matched` +
-                    `actual length = ${Object.entries(tabsAPIData.data).length},` +
-                    `expected length = ${TABS_API_OBJECT_LEN}`)
+               
 
                 return <BadRequest/>
             }
         } else {
             if (tabsAPIData.hasOwnProperty("statusCode")) {
-                log.info(`[NavBar]: tabsAPIData.statusCode = ${tabsAPIData.statusCode}`)
+                
                 props.errorHandler()
                 return <HTTPError statusCode={tabsAPIData.statusCode}/>
             }
@@ -185,11 +190,12 @@ const NavBar = props => {
     }
 
     const changeAuthStatusHandler = () => {
-        log.info(`[Navbar] handleSignOutClick isSignedIn = ${googleAuthReducer.isSignedInUsingOAuth}`)
+       
         if (googleAuthReducer.isSignedInUsingOAuth) {
             props.signOutUsingOAuth(googleAuthReducer.oAuth)
         } else if (tokenId && isSignedIn) {
             props.signOut()
+            navigate("/signin")
         } else {
             navigate("/signin")
         }
@@ -210,7 +216,7 @@ const NavBar = props => {
     };
 
     const handleMobileSearchClose = () => {
-        log.info("handleMobileSearchClose is invoked.....")
+       
         setMobileSearchState(false)
     }
 
@@ -246,12 +252,12 @@ const NavBar = props => {
     }
 
     const handleSidebarOpen = () => {
-        log.info(`[NavBar] opening sidebar`)
+       
         setHamburgerBtnState(true)
     }
 
     const handleSidebarClose = () => {
-        log.info(`[NavBar] clickAwayListener is triggered`)
+      
         setHamburgerBtnState(false)
     }
 
@@ -271,7 +277,8 @@ const NavBar = props => {
         )
     }
 
-    log.info(`[NavBar]: Rendering NavBar Component`)
+   console.log(tokenId);
+   console.log(isSignedIn);
     return (
         <>
             <SideBar open={hamburgerBtnState} closeHandler={handleSidebarClose}/>

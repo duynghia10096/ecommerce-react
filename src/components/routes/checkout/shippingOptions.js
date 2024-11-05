@@ -1,5 +1,5 @@
 import React from 'react';
-import log from 'loglevel';
+
 import {Divider, Grid} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Radio from '@material-ui/core/Radio';
@@ -77,7 +77,7 @@ export function ShippingOptions() {
                 deliveryPrice = deliveryPrices.express
                 break
             default:
-                log.error(`[ShippingOptions] Unexpected ShippingOptions value = ${event.target.value}`)
+                
                 return null
         }
 
@@ -215,8 +215,7 @@ export function ShippingOptions() {
         )
     }
 
-    log.info("[ShippingOptions] Rendering ShippingOptions Component.")
-    log.info(`shippingOptionState-3 = ${JSON.stringify(shippingOptionState)}`)
+    
 
     return (
         <Grid item style={{width: "100%", height: "fit-content"}}>

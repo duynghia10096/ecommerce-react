@@ -5,7 +5,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import log from 'loglevel';
+
 
 const container = {
     fontSize: '2rem',
@@ -38,18 +38,18 @@ export default function BottomNavBar() {
     const [filterButtonState, setFilterButtonState] = useState(false)
 
     const handleSortClick = () => {
-        log.info(`[BottomNavBar] handleSortClick`)
+      
         setSortButtonState(true)
     }
 
     const handleFilterClick = () => {
-        log.info(`[BottomNavBar] handleFilterClick`)
+        
         setFilterButtonState(true)
     }
 
     const renderBottomNavBarButtons = () => {
         if (sortButtonState || filterButtonState) {
-            log.info(`[BottomNavBar] renderSortList returning null`)
+          
             return null
         }
         return (
@@ -70,10 +70,10 @@ export default function BottomNavBar() {
 
     const renderSortList = () => {
         if (!sortButtonState) {
-            log.info(`[BottomNavBar] renderSortList returning null`)
+           
             return null
         }
-        log.info(`[BottomNavBar] Rendering renderSortList`)
+       
         return (
             <div style={{width: '100%', display: "flex", flexDirection: "column"}}>
                 <div style={container.sortListItem}>SORT BY</div>
@@ -95,7 +95,7 @@ export default function BottomNavBar() {
         )
     }
 
-    log.info(`[BottomNavBar] Rendering BottomNavBar component`)
+  
 
     return (
         <div style={container}>

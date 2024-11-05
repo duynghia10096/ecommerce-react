@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {TAB_CONFIG} from "../../../constants/constants";
-import log from "loglevel";
+
 import {PRODUCTS_ROUTE} from "../../../constants/react_routes";
 
 const height = 48
@@ -104,7 +104,7 @@ export default function AccordionSection() {
         )
     }
 
-    log.info(`[AccordionSection] Rendering AccordionSection...`)
+
 
     return TAB_CONFIG.map((conf) => {
         const id = `${conf.mapKey}-panel-header`

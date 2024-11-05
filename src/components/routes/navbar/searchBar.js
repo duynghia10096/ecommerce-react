@@ -4,7 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Grid} from "@material-ui/core";
-import log from 'loglevel';
+
 import {connect, useSelector} from "react-redux";
 import {getSearchSuggestions} from "../../../actions";
 import {makeStyles} from "@material-ui/core/styles";
@@ -66,7 +66,7 @@ function SearchBar(props) {
             if (!selectedValue) {
                 finalSelectedValue = getSearchKeyword()
             }
-            log.info("Coming here------1 = " + reason)
+          
             searchKeyword(finalSelectedValue)
         }
     }
@@ -95,7 +95,7 @@ function SearchBar(props) {
         props.getSearchSuggestions(newValue)
     }
 
-    log.info(`[Search Bar] Rendering search bar....`)
+   
 
     return (
         <Grid container alignItems="center">

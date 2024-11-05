@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import log from 'loglevel';
+
 import BreadcrumbsSection from "../ui/breadcrumbs";
 import {MAX_PRODUCTS_PER_PAGE} from "../../constants/constants";
 
@@ -33,11 +33,11 @@ function ShoppingBag(props) {
     let cartTotal = 0
     const navigate = useNavigate();
     useAddProductsToShoppingBag(props.getDataViaAPI)
-
+    
     const getStringBeforeLastDelimiter = (str, delimiter) => {
         return str.substring(0, str.lastIndexOf(delimiter))
     }
-
+    
     const breadcrumbLinks = [
         {
             name: 'Home',
@@ -71,9 +71,8 @@ function ShoppingBag(props) {
     }
 
     const getCartTotal = () => {
-        log.info(`[ShoppingBag] ShoppingBag = ${JSON.stringify(shoppingBagProducts)}`)
-        log.info(`[ShoppingBag] addToCart = ${JSON.stringify(addToCart)}`)
-        if (shoppingBagProducts.data && Object.keys(addToCart.productQty).length > 0) {
+        
+        if (shoppingBagProducts.data && addToCart.productQty && Object.keys(addToCart.productQty).length > 0) {
             for (const [id, qty] of Object.entries(addToCart.productQty)) {
                 if (shoppingBagProducts.data.hasOwnProperty(id)) {
                     cartTotal += qty * shoppingBagProducts.data[id].price
@@ -81,7 +80,8 @@ function ShoppingBag(props) {
             }
         }
 
-        Cookies.set(CART_TOTAL_COOKIE, cartTotal, {expires: 7});
+       
+        localStorage.setItem(CART_TOTAL_COOKIE, cartTotal);
 
         dispatch({
             type: CART_TOTAL,
@@ -92,11 +92,11 @@ function ShoppingBag(props) {
     }
 
     const onQtyDropdownChangeHandler = (value, text, id) => {
-        log.info(`[ShoppingBag] onChangeHandler id = ${id}, value = ${value}`)
+        
         let newAddToCart = addToCart
         newAddToCart.productQty[id] = value
-
-        Cookies.set(SHOPPERS_PRODUCT_INFO_COOKIE, newAddToCart, {expires: 7});
+        console.log(newAddToCart)
+        localStorage.setItem(SHOPPERS_PRODUCT_INFO_COOKIE, newAddToCart);
         dispatch({
             type: ADD_TO_CART,
             payload: newAddToCart
@@ -109,7 +109,7 @@ function ShoppingBag(props) {
             let newAddToCart = addToCart
             newAddToCart.totalQuantity -= newAddToCart.productQty[itemRemovalModalState.productId]
             newAddToCart.productQty = _.omit(newAddToCart.productQty, itemRemovalModalState.productId)
-            Cookies.set(SHOPPERS_PRODUCT_INFO_COOKIE, newAddToCart, {expires: 7});
+            localStorage.setItem(SHOPPERS_PRODUCT_INFO_COOKIE, newAddToCart);
             dispatch({
                 type: ADD_TO_CART,
                 payload: newAddToCart
@@ -122,7 +122,7 @@ function ShoppingBag(props) {
     }
 
     const removeBtnClickHandler = id => () => {
-        log.info(`[ShoppingBag] removeBtnChangeHandler id = ${id}`)
+        
         setItemRemovalModalState({active: true, productId: id})
     }
 
@@ -139,16 +139,16 @@ function ShoppingBag(props) {
             }
         } else {
             if (shoppingBagProducts.hasOwnProperty('statusCode')) {
-                log.info(`[ShoppingBag]: ShoppingBag.statusCode = ${shoppingBagProducts.statusCode}`)
+                
                 return <HTTPError statusCode={shoppingBagProducts.statusCode}/>
             }
         }
     }
 
     const renderShoppingBagProducts = () => {
-        log.trace(`[ShoppingBag] ShoppingBag = ${JSON.stringify(shoppingBagProducts)}`)
+        
 
-        if(Object.keys(addToCart.productQty).length === 0) {
+        if(!shoppingBagProducts.data || Object.keys(addToCart.productQty).length === 0) {
             return null
         }
 
@@ -226,7 +226,7 @@ function ShoppingBag(props) {
         navigate("/checkout")
     }
 
-    log.info("[ShoppingBag] Rendering ShoppingBag Component.")
+
 
     return (
         <>

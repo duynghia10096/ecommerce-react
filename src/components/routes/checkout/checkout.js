@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import log from 'loglevel';
+
 import {Paper, Grid, Hidden} from "@material-ui/core";
 import PriceDetails from "../priceDetails";
 import ShippingAddress from "./shippingAddress";
@@ -101,7 +101,7 @@ function Checkout(props) {
     useEffect(() => {
 
         return () => {
-            log.info(`[Checkout] Component will unmount...`)
+          
             dispatch({
                 type: RESET_PAYMENT_RESPONSE_ERROR
             })
@@ -125,7 +125,7 @@ function Checkout(props) {
         )
     }
 
-    log.info(`[Checkout] Rendering Checkout Component. isLoading = ${isLoading}`)
+  
 
     return (
         <Grid container justify={"center"} classes={{root: classes.root}}>

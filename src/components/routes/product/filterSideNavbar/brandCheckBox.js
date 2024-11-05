@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CheckboxList from "../../../ui/checkboxList";
-import log from 'loglevel';
+
 import {useSelector} from "react-redux";
 import CheckboxMoreButton from "./checkboxMoreButton";
 import CheckboxSearchBar from "./checkboxSearchBar";
@@ -41,7 +41,7 @@ export default function BrandCheckBox() {
 
     // return if doesn't got anything from the server
     if (!brandList) {
-        log.debug(`[BrandCheckBox] brandList is null`)
+       
         return null
     }
 
@@ -50,7 +50,7 @@ export default function BrandCheckBox() {
      * @returns {any}
      */
     const getActiveBrandList = () => {
-        console.log("sortedBrandList ==================> " + JSON.stringify(searchBrandList))
+       
         return searchBrandList ? searchBrandList : brandList
     }
 
@@ -59,13 +59,13 @@ export default function BrandCheckBox() {
     }
 
     const handleCheckBoxChange = (id, value) => {
-        log.info(`[BrandCheckBox] handleCheckBoxChange(id) = ${id}, value = ${value}`)
+       
         const {list, ids} = toggleId(id, value, selectedList)
         setSelectedList(list)
         navigate(updateQueryString(location, propName, id, ids))
     }
 
-    log.info(`[BrandCheckBox] Rendering BrandCheckBox Component`)
+   
 
     return (
         <>

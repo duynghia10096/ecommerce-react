@@ -4,7 +4,7 @@ import {connect, useDispatch, useSelector} from "react-redux";
 import {getDataViaAPI} from "../../../actions";
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import log from "loglevel";
+
 import {DETAILS_ROUTE, PRODUCTS_ROUTE} from "../../../constants/react_routes";
 
 import {LOAD_FILTER_PRODUCTS, SELECT_PRODUCT_DETAIL} from "../../../actions/types";
@@ -21,7 +21,7 @@ const FilterProductDisplay = props => {
         const navigate = useNavigate();
         const location = useLocation()
         useEffect(() => {
-            log.info(`[FilterProductDisplay] Component did mount`)
+          
 
             props.getDataViaAPI(LOAD_FILTER_PRODUCTS, PRODUCT_BY_CATEGORY_DATA_API, location.search, false,navigate)
 
@@ -35,7 +35,7 @@ const FilterProductDisplay = props => {
         // initial state is loading and this will change
         // when we retrieve data
         if (filterProductsReducer.isLoading) {
-            log.info(`[FilterProductDisplay] filterProducts is null`)
+          
             return (
                 <Box display="flex" pb={15} justifyContent="center" css={{width: '100%'}}>
                     <Spinner/>
@@ -46,10 +46,6 @@ const FilterProductDisplay = props => {
                 // if does not got anything from the server but we didn't got any
                 // error then we didn't find any matches
                 if (Object.entries(filterProductsReducer.data).length === 0) {
-
-                    log.info(`[Home]: homeAPIData.data length =` +
-                        `${Object.entries(filterProductsReducer.data).length}`)
-
                     return (
                         <Box display="flex" justifyContent="center" css={{width: '100%', height: '100%'}}>
                             <SearchMatchesNotFound/>
@@ -64,14 +60,14 @@ const FilterProductDisplay = props => {
 
                 // if there is any error then status code will be set in action creator.
                 if (filterProductsReducer.hasOwnProperty('statusCode')) {
-                    log.info(`[Home]: homeAPIData.statusCode = ${filterProductsReducer.statusCode}`)
+                   
                     return <HTTPError statusCode={filterProductsReducer.statusCode}/>
                 }
             }
         }
 
         const handleImageClick = selectedProduct => () => {
-            log.debug(`[FilterProductDisplay] dispatching the selected product = ${JSON.stringify(selectedProduct)}`)
+           
             dispatch({
                 type: SELECT_PRODUCT_DETAIL,
                 payload: {
@@ -84,10 +80,10 @@ const FilterProductDisplay = props => {
         }
 
         const renderProductList = (productList) => {
-            log.trace(`[FilterProductDisplay] Rendering renderImageList imageList = ${JSON.stringify(productList)}`)
+           
 
             return productList.map((info) => {
-                log.trace(`[FilterProductDisplay] Rendering imageList info = ${info}`)
+               
                 return (
                     <Grid item container direction="column" spacing={1} xs={6} sm={4} md={4} lg={3} key={info.id}>
                         <Grid item>
@@ -129,7 +125,7 @@ const FilterProductDisplay = props => {
             });
         };
 
-        log.info(`[FilterProductDisplay] Rendering FilterProductDisplay Component`)
+      
         return (
             <Grid item container spacing={2} xs={12} md={12} style={{padding: "1rem 0 1rem 1rem", margin: 0}}>
                 {renderProductList(filterProducts)}

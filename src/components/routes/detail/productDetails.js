@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Grid, Box, Typography, Divider, Avatar } from "@material-ui/core";
-import log from 'loglevel';
+
 import BreadcrumbsSection from "../../ui/breadcrumbs";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -316,26 +316,26 @@ function ProductDetails(props) {
         },
     ]
 
-    console.log("Selected Product ", selectedProduct)
+    
 
     if (!selectedProduct) {
         try {
 
             // if status code is set then its because of error.
-            log.info(`[Product Detail] selectProductDetail = ${JSON.stringify(selectProductDetail)}`)
+            
             if (selectProductDetail.hasOwnProperty("statusCode")) {
-                log.info(`[Product Detail] Internal Server Error`)
+                
                 return <InternalServerError />
             }
 
             // get the product details from server
             const extractedProductId = window.location.search.split("product_id=")
-            log.info(`[Product Detail] extractedProductId = ${JSON.stringify(extractedProductId)}, length = ${extractedProductId.length}`)
+           
             if (extractedProductId.length === 2) {
                 props.getDataViaAPI(SELECT_PRODUCT_DETAIL, PRODUCT_BY_ID_DATA_API + extractedProductId[1], null, false, navigate)
             }
         } catch (e) {
-            log.error('[Product Detail] selectedProduct is null')
+          
             return <BadRequest />
         }
     }
@@ -350,8 +350,8 @@ function ProductDetails(props) {
 
     // set the cart products in the cookie
     const dispatchAddToCart = newAddToCart => {
-        Cookies.set(SHOPPERS_PRODUCT_INFO_COOKIE, newAddToCart, { expires: 7 });
-        log.info(`[Product Detail] dispatchAddToCart productQty = ${JSON.stringify(newAddToCart)}`)
+        localStorage.setItem(SHOPPERS_PRODUCT_INFO_COOKIE, newAddToCart);
+        
         dispatch({
             type: ADD_TO_CART,
             payload: newAddToCart
@@ -359,7 +359,7 @@ function ProductDetails(props) {
     }
 
     const handleAddToBagBtnClick = product_id => () => {
-        log.info(`[Product Detail] Product is added to cart`)
+        
         let newAddToCart = addToCart
 
         // add new product to cart
@@ -394,7 +394,7 @@ function ProductDetails(props) {
         props.window.scrollTo(0, 0)
     }
 
-    log.info(`[Product Detail] Rendering Detail Component. selectedProduct = ${JSON.stringify(selectedProduct)}`)
+  
     return (
         <>
             <DocumentTitle title="Product Details" />
@@ -464,7 +464,7 @@ function ProductDetails(props) {
                             size="large"
                             color="default"
                             fullWidth
-
+                            onClick={handleProceedToBagBtnClick}
                         >
                             PROCEED TO BAG
                         </Button>

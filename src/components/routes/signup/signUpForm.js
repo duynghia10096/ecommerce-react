@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import log from 'loglevel';
+
 import {Button, Grid} from "@material-ui/core";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
@@ -24,7 +24,7 @@ class SignUpForm extends Component {
         event.preventDefault();
 
         if (!this.props.signUpFormStore.values.termsCheckbox) {
-            log.info('Please read the terms and conditions. Checkbox is uncheck.')
+           
             this.setState({errorMsg: "Please read the terms and conditions. Checkbox is uncheck."})
             return
         }
@@ -73,7 +73,7 @@ class SignUpForm extends Component {
             )
         }
 
-        log.info(`[SignUpForm] Rendering SignUpForm Component...`)
+      
 
         return (
             <Grid container>
@@ -162,9 +162,7 @@ const validate = (formValues) => {
     }
 
     if (formValues.password && formValues.confirmPassword) {
-        console.log(`formValues.password = ${formValues.password}`)
-        console.log(`formValues.confirmPassword = ${formValues.confirmPassword}`)
-        console.log(`result = ${formValues.password.localeCompare(formValues.confirmPassword)}`)
+        
         if (formValues.password.localeCompare(formValues.confirmPassword) !== 0) {
             errors.confirmPassword = 'Confirm password did not matched';
         }

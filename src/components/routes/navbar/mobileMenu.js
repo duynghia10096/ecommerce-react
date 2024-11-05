@@ -1,12 +1,12 @@
 import React from 'react';
-import log from "loglevel";
+
 import {Grid, IconButton, Menu} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import BagButton from "./bagButton";
 
 export default function MobileMenu(props) {
 
-    log.info(`[MobileMenu]: Rendering MobileMenu Component`)
+   
     return (
         <Menu
             anchorEl={props.mobileMoreAnchorEl}

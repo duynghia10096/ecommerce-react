@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import log from 'loglevel';
+
 import {Button, Grid} from "@material-ui/core";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
@@ -7,6 +7,12 @@ import {signIn} from "../../../actions"
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
 import {renderReduxTextField} from "../../ui/reduxTextField";
+import { useNavigate } from 'react-router-dom';
+
+const WrappedSignInForm  = (props) => {
+    const navigate = useNavigate();
+    return <SignInForm {...props} navigate={navigate} />;
+};
 
 class SignInForm extends Component {
    
@@ -15,12 +21,13 @@ class SignInForm extends Component {
         this.state = {
             isLoading: false
         }
+       
     }
 
     handleSubmit = event => {
         event.preventDefault();
         this.props.loadingHandler(true)
-        this.props.signIn(this.props.signInFormStore.values)
+        this.props.signIn(this.props.signInFormStore.values, this.props.navigate)
     }
 
     render() {
@@ -51,7 +58,7 @@ class SignInForm extends Component {
             )
         }
 
-        log.info(`[SignInForm] Rendering SignInForm Component...`)
+        
 
         return (
             <Grid container>
@@ -111,6 +118,8 @@ const mapStateToProps = (state) => {
 const reduxWrapperForm = reduxForm({
     form: 'signInForm',
     validate,
-})(SignInForm);
+})(WrappedSignInForm);
+
+
 
 export default connect(mapStateToProps, {signIn})(reduxWrapperForm);

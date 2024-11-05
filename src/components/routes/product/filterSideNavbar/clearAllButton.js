@@ -1,5 +1,5 @@
 import React from 'react';
-import log from 'loglevel';
+
 import {useDispatch, useSelector} from "react-redux";
 import {CLEAR_ALL_FILTERS, RESET_SELECTED_CATEGORY} from "../../../../actions/types";
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ function ClearAllButton() {
     // check if any filter is selected or not
     if ((selectedFilterAttribute.genders.length + selectedFilterAttribute.apparels.length
         + selectedFilterAttribute.brands.length + selectedFilterAttribute.prices.length) === 0) {
-        log.info(`[ClearAllButton] selected attribute are null`)
+      
         return null
     }
 
@@ -21,7 +21,7 @@ function ClearAllButton() {
      * remove all selected filters
      */
     const handleClearAllClick = () => {
-        log.info(`[ClearAllButton] handleClearAllClick(value)`)
+        
         dispatch({
             type: RESET_SELECTED_CATEGORY
         })
@@ -32,7 +32,7 @@ function ClearAllButton() {
         navigate(location.pathname + "?q=page=0,16")
     }
 
-    log.info(`[ClearAllButton] Rendering ClearAllButton Component`)
+   
 
     return (
         <>

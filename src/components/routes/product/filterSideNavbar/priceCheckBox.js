@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CheckboxList from "../../../ui/checkboxList";
-import log from 'loglevel';
+
 import {useSelector} from "react-redux";
 import {NavBarHeader} from "../../../ui/headers";
 import {Box} from "@material-ui/core";
@@ -38,7 +38,7 @@ export default function PriceCheckBox() {
     }, [location.search])
 
     if (!priceRangeList) {
-        log.debug(`[PriceCheckBox] priceRangeList is null`)
+        
         return null
     }
 
@@ -48,7 +48,7 @@ export default function PriceCheckBox() {
      * @param value
      */
     const handleCheckBoxChange = (id, value) => {
-        log.info(`[PriceCheckBox] handleCheckBoxChange(id) = ${id}`)
+     
         const {list, ids} = toggleId(id, value, selectedList)
         setSelectedList(list)
         navigate(updateQueryString(location, "prices", id, ids))

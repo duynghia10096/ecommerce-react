@@ -4,7 +4,7 @@ import {
     SELECT_PRODUCT_PAGE,
     SELECT_SORT_CATEGORY
 } from "../../../actions/types";
-import log from 'loglevel';
+
 import {
     FILTER_ATTRIBUTES,
     INITIAL_SELECTED_FILTER_ATTRIBUTE_STATE,
@@ -17,7 +17,7 @@ const removeValueIfExist = (list, id) => {
         return null
     }
 
-    console.log(`list = ${JSON.stringify(list)}`)
+
 
     let valueExist = false
 
@@ -38,10 +38,10 @@ const removeValueIfExist = (list, id) => {
 }
 
 const appendNewPayloadToPrevState = (prevState, payload) => {
-    log.info(`[SelectedFilterAttributesReducer] payload = ${JSON.stringify(payload)}`)
+   
     FILTER_ATTRIBUTES.forEach((attribute) => {
         if (payload[attribute]) {
-            log.info(`[SelectedFilterAttributesReducer] payload[attribute] = ${JSON.stringify(payload[attribute])}`)
+           
             if (payload[attribute].id) {
                 if (payload[attribute].hasOwnProperty("append") && payload[attribute].append === false) {
                     // swap the object property
@@ -51,8 +51,7 @@ const appendNewPayloadToPrevState = (prevState, payload) => {
                     if (filterList) {
 
                         // for single object removal from list
-                        log.info(`[SelectedFilterAttributesReducer] prevState = ${JSON.stringify(prevState)},` +
-                            `filterList = ${JSON.stringify(filterList)}`)
+                      
                         prevState = {...prevState, [attribute]: filterList}
                     } else {
 
@@ -61,12 +60,12 @@ const appendNewPayloadToPrevState = (prevState, payload) => {
                     }
                 }
             } else if (payload[attribute].attrList) {
-                log.info(`[SelectedFilterAttributesReducer] attrList = ${JSON.stringify(payload[attribute])}`)
+              
 
                 // for list of object addition
                 prevState = {...prevState, [attribute]: payload[attribute].attrList};
 
-                log.info(`[SelectedFilterAttributesReducer] newState = ${JSON.stringify(prevState)}`)
+                
             }
         }
     })

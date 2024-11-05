@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import log from "loglevel"
+
 import NavBar from "./routes/navbar/navBar";
 import {TabPanelList} from "./routes/navbar/tabPanelList";
 import Home from "./routes/home/home";
@@ -16,18 +16,14 @@ import {CancelPayment} from "./routes/cancelPayment";
 import {BadRequest} from "./ui/error/badRequest";
 
 const App = () => {
-    log.info(`[App]: Rendering App Component`)
-    const [serverError, setServerError] = useState(false);
-
-    const setServerErrorHandler = () => {
-        setServerError(true)
-    }
+   
+   
 
     return (
         <Router>
-            <NavBar errorHandler={setServerErrorHandler}/>
+            <NavBar/>
             <TabPanelList/>
-            {serverError ? null: <Routes>
+            <Routes>
                 <Route path="/" element={<Home />} />
                     <Route path="/signin" element={<SignIn />} />
                     <Route path="/signup" element={<SignUp />} />
@@ -39,7 +35,7 @@ const App = () => {
                     <Route path="/checkout/success-payment/:id" element={<SuccessPayment />} />
                     <Route path="/checkout/cancel-payment/:id" element={<CancelPayment />} />
                     <Route path="*" element={<BadRequest />} />
-            </Routes>}
+            </Routes>
         </Router>
     )
 }

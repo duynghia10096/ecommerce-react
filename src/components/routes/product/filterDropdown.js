@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import log from 'loglevel';
+
 import {useSelector} from "react-redux";
 import DropdownSection from "../../ui/dropDown";
 import {SORT_ATTRIBUTE} from "../../../constants/constants";
@@ -24,7 +24,7 @@ export default function FilterDropdown() {
     }
 
     const onChangeHandler = (id, value) => {
-        log.info(`[FilterDropdown] onChangeHandler id = ${id}, value = ${value}`)
+       
         setSortValue({id, value})
         let route = location.pathname
         let queryStr = location.search
@@ -35,7 +35,7 @@ export default function FilterDropdown() {
         }
     }
 
-    log.info(`[FilterDropdown] Rendering FilterDropdown Component`)
+  
 
     return (
         <DropdownSection

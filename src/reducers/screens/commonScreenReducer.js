@@ -33,7 +33,7 @@ import {
     RESET_CART_TOTAL,
     RESET_ADD_TO_CART, RESET_SHOPPING_BAG_PRODUCTS, SEARCH_KEYWORD, SEARCH_KEYWORD_ERROR, RESET_QUERY_STATUS
 } from "../../actions/types";
-import log from "loglevel";
+
 import {
     INITIAL_SHIPPING_ADDRESS_STATE,
     INITIAL_SHIPPING_OPTION_STATE
@@ -102,10 +102,10 @@ export const signUpReducer = (state
 };
 
 export const homePageDataReducer = (state = {isLoading: true}, action) => {
-    log.trace(`[HOME_SCREEN_REDUCER]: action.type = ${action.type}`)
+
     switch (action.type) {
         case LOAD_HOME_PAGE:
-            log.trace(`[HOME_SCREEN_REDUCER]: action.payload = ${JSON.stringify(action.payload)}`)
+          
             return action.payload;
         default:
             return state;

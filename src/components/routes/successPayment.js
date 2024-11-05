@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import log from 'loglevel'
+
 import {Grid} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {BadRequest} from "../ui/error/badRequest";
@@ -22,12 +22,12 @@ export const SuccessPayment = () => {
     const shippingOption = useSelector(state => state.shippingOptionReducer)
     const addToCart = useSelector(state => state.addToCartReducer)
     const deliveryCharges = useSelector(state => state.deliveryChargesReducer)
-    // const paymentResponse = useSelector(state => state.paymentResponseReducer)
+    const paymentResponse = useSelector(state => state.paymentResponseReducer)
 
     useEffect(() => {
 
         return () => {
-            log.info("[SuccessPayment] Component will unmount.")
+            
 
             resetStates.forEach(resetState => {
                 dispatch({
@@ -41,11 +41,11 @@ export const SuccessPayment = () => {
     }, [])
 
     // log.info(`paymentResponse = ${JSON.stringify(paymentResponse)}`)
-    // if (paymentResponse.error) {
-    //     // if user land on this page with an payment error
-    //     // then we cannot proceed further...
-    //     return <GenericErrorMsg/>
-    // }
+    if (paymentResponse.error) {
+        // if user land on this page with an payment error
+        // then we cannot proceed further...
+        return <GenericErrorMsg/>
+    }
 
     if (!shippingAddressForm) {
         return <BadRequest/>
@@ -77,7 +77,7 @@ export const SuccessPayment = () => {
         let products = []
 
         if (!shoppingBagProducts.data) {
-            log.info(`[SuccessPayment] shoppingBagProducts.data is null`)
+           
             return null
         }
 
@@ -107,7 +107,7 @@ export const SuccessPayment = () => {
         return products
     }
 
-    log.info('[SuccessPayment] Rendering SuccessPayment Component')
+ 
     return (
         <Grid item xs={8} container spacing={2} style={{
             padding: "2rem", margin: "2rem", border: "1px solid black",
@@ -118,19 +118,19 @@ export const SuccessPayment = () => {
                   style={{border: "1px solid green", padding: "2rem", fontSize: "2rem", fontWeight: "bold"}}>
                 Payment Successful. Thank You For Shopping at Shoppers.
             </Grid>
-            {/* <Grid item xs={12} style={{marginTop: "2rem", fontWeight: "bold"}}>
+            <Grid item xs={12} style={{marginTop: "2rem", fontWeight: "bold"}}>
                 {`Your order is placed successfully. Your order id is ${paymentResponse.order_id}.`}
-            </Grid> */}
+            </Grid>
 
             <Grid item container spacing={2}>
                 <Grid item container justify="flex-end" xs={2}>
                     Receipt:
                 </Grid>
-                {/* <Grid item container xs={8} direction="column" style={{fontWeight: "bold"}}>
+                <Grid item container xs={8} direction="column" style={{fontWeight: "bold"}}>
                     <a href={paymentResponse.receipt_url} target="_blank" rel="noopener noreferrer">
                         Order-Receipt
                     </a>
-                </Grid> */}
+                </Grid>
             </Grid>
 
             <Grid item container spacing={2}>

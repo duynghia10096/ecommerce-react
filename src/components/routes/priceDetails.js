@@ -1,5 +1,5 @@
 import React from 'react';
-import log from 'loglevel';
+
 import {Divider, Grid} from "@material-ui/core";
 import {useSelector} from "react-redux";
 
@@ -35,7 +35,7 @@ function PriceDetails() {
         )
     }
 
-    log.info("[PriceDetails] Rendering PriceDetails Component.")
+   
 
     return (
         <Grid container justify="center">

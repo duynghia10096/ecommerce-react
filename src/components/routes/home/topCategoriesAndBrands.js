@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid} from "@material-ui/core";
 import {Link} from "react-router-dom";
-import log from 'loglevel';
+
 import {MAX_PRODUCTS_PER_PAGE} from "../../../constants/constants";
 import {useSelector} from "react-redux";
 
@@ -30,11 +30,11 @@ const TopCategoriesAndBrands = () => {
                     }
                     break
                 default:
-                    log.error("[TopCategoriesAndBrands]: filterQueryType is unsupported = " + filterQueryType)
+                   
                     return null
             }
 
-            log.trace(`[TopCategoriesAndBrands]: filterQuery = ${filterQuery}, filterQueryType = ${filterQueryType}`)
+            
             return (
                 <Grid item xs={6} sm={2} key={info.title} style={{textAlign: "center"}}>
                     <Link to={`/products?q=${filterQuery}::page=0,${MAX_PRODUCTS_PER_PAGE}`}>
@@ -60,7 +60,7 @@ const TopCategoriesAndBrands = () => {
         )
     }
 
-    log.info("[TopCategoriesAndBrands]: Rendering TopCategoriesAndBrands Component")
+  
 
     return (
         <>

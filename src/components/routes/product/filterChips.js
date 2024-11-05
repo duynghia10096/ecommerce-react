@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Chip from "@material-ui/core/Chip";
 import Box from '@material-ui/core/Box';
-import log from "loglevel";
+
 import {ADD_SELECTED_CATEGORY} from "../../../actions/types";
 
 import {PRODUCT_BY_CATEGORY_DATA_API} from "../../../constants/api_routes";
@@ -22,7 +22,7 @@ const FilterChips = () => {
     // check if any filter is selected or not
     if ((selectedGenders.length + selectedApparels.length
         + selectedBrands.length + selectedPriceRanges.length) === 0) {
-        log.debug(`[FilterChips] Filter are empty`)
+      
         return null
     }
 
@@ -56,7 +56,7 @@ const FilterChips = () => {
      * @returns {null|[]}
      */
     const renderChipBoxes = () => {
-        log.debug(`[FilterChips] renderChipBoxes is invoked`)
+       
 
         let chipBoxList = []
         if (selectedGenders.length > 0) {
@@ -93,7 +93,7 @@ const FilterChips = () => {
 
         for (let i = 0; i < selectedAttrList.length; i++) {
             if(selectedAttrList[i].id === parseInt(id)) {
-                log.info(`[FilterChips] id = ${id} dispatch`)
+              
                 dispatch({
                     type: ADD_SELECTED_CATEGORY,
                     payload: {
@@ -135,7 +135,7 @@ const FilterChips = () => {
      * @returns {function(...[*]=)}
      */
     const handleDelete = id => () => {
-        log.info(`[FilterChips] handleDelete for chip for id = ${id}`)
+       
         const splitId = id.split("-")
 
         if(selectedGenders.length > 0 && splitId[0].localeCompare("ge") === 0) {

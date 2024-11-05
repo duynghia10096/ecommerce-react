@@ -1,5 +1,5 @@
 import{ useEffect } from "react";
-import log from "loglevel";
+
 
 /**
  * Hook that alerts clicks outside of the passed ref
@@ -17,7 +17,7 @@ export function useClickAway(ref, closeHandler) {
                     closeHandler()
                 }
             } catch (e) {
-                log.error(`[useClickAway] event.target.getAttribute("class") is empty`)
+                
             }
         }
 

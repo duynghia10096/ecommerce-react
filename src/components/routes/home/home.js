@@ -6,7 +6,7 @@ import {StyledSegment, StyledDimmer} from "../../../styles/semanticUI/customStyl
 import {connect, useSelector} from "react-redux";
 import {DocumentTitle} from "../../ui/documentTitle";
 import {getDataViaAPI} from "../../../actions";
-import log from 'loglevel';
+
 import {homePageDataReducer} from "../../../reducers/screens/commonScreenReducer";
 import HomeMenuIcons from "./homeMenuIcons";
 import Hidden from "@material-ui/core/Hidden";
@@ -47,7 +47,7 @@ const Home = props => {
 
     // we will be showing spinner till we get the data via API
     if (homeAPIData.isLoading) {
-        log.info("[Home]: loading")
+        
         return <Spinner textComponent={
             <Grid container direction="column" spacing={1} style={{
                 alignItems: "center", fontSize: "1.1rem", fontWeight: "bold"}}>
@@ -81,7 +81,7 @@ const Home = props => {
         }
     }
 
-    console.log(homeAPIData);
+
     
     return (
         <Dimmer.Dimmable as={StyledSegment} dimmed={hover}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import {Link} from "react-router-dom";
-import log from 'loglevel';
+
 import {MAX_PRODUCTS_PER_PAGE} from "../../../constants/constants";
 import {useSelector} from "react-redux";
 
@@ -26,7 +26,7 @@ const HomeMenuIcons = () => {
         });
     };
 
-    log.info("[HomeMenuIcons]: Rendering HomeMenuIcons Component")
+ 
 
     return (
         <Grid container justify="space-around" style={{padding: '1rem 0'}}>

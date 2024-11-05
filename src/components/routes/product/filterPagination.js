@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
-import log from 'loglevel';
+
 import {useSelector} from "react-redux";
 import Pagination from "@material-ui/lab/Pagination";
 import {MAX_PRODUCTS_PER_PAGE} from "../../../constants/constants";
@@ -38,15 +38,14 @@ export default function FilterPagination() {
     // if we got data from the server side
     if (!filterProductsReducer || filterProductsReducer.hasOwnProperty("data") === false ||
         filterProductsReducer.data.hasOwnProperty("totalCount") === false) {
-        log.info(`[FilterPagination] totalProducts = ${totalProducts}`)
+       
         return null
     } else {
         // set the total products used to calculate how many pages require
         totalProducts = filterProductsReducer.data.totalCount
     }
 
-    log.info(`[FilterPagination] Rendering FilterPagination Component selectedPage = ${JSON.stringify(selectedPage)}`)
-
+    
     return (
         <Grid container direction="column"
               alignItems="center"

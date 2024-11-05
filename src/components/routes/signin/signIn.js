@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import SignInForm from "./signInForm"
 import {Grid, Typography} from "@material-ui/core";
-import log from "loglevel";
+
 import {Divider} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {Dimmer, Loader} from 'semantic-ui-react'
@@ -21,7 +21,7 @@ const SignIn = () => {
     }
 
     useEffect(() => {
-        log.info(`[SignIn]: Component did mount...`)
+      
         setIsLoading(false)
 
         // eslint-disable-next-line
@@ -30,7 +30,7 @@ const SignIn = () => {
     useEffect(() => {
 
         return () => {
-            log.info(`[SignIn] Component will unmount...`)
+           
             dispatch({
                 type: RESET_SIGN_IN_ERROR
             })
@@ -41,11 +41,11 @@ const SignIn = () => {
 
     if ((isSignedIn !== null && isSignedIn)
         || (isSignedInUsingOAuth !== null && isSignedInUsingOAuth)) {
-        log.info(`[SignIn] Already signed In...`)
+       
         return null
     }
 
-    log.info(`[SignIn]: Rendering SignIn Component`)
+   
 
     return (
         <Grid container justify="center" style={{paddingTop: "2rem"}}>

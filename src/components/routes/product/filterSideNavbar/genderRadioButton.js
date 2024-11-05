@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import log from 'loglevel';
+
 import RadioButtonsGroup from "../../../ui/radioButtonGroup";
 import {useSelector} from "react-redux";
 import {Grid} from "@material-ui/core";
@@ -35,17 +35,17 @@ export default function GenderRadioButton() {
     }, [resetFilter])
 
     if (!genderList) {
-        log.debug(`[GenderRadioButton] genderList is null`)
+
         return null
     }
 
     const handleRadioButtonChange = value => {
-        log.info(`[GenderRadioButton] handleRadioButtonChange value = ${value}`)
+       
 
         // compare first character only as all the options has unique first character
         for (let i = 0; i < genderList.length; i++) {
             if (value.charAt(0).localeCompare(genderList[i].value.charAt(0)) === 0) {
-                log.info(`[GenderRadioButton] handleRadioButtonChange id = ${genderList[i].id}`)
+               
                 setSelectedValue(value)
                 let route = location.pathname
                 let queryStr = location.search
@@ -62,8 +62,7 @@ export default function GenderRadioButton() {
         window.scrollTo(0, 80)
     }
 
-    log.info(`[GenderRadioButton] Rendering FilterRadioButtonSection Component...`)
-
+   
     return (
         <>
             <Grid item style={{padding: "1rem 0"}}>

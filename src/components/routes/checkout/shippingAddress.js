@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import log from 'loglevel';
+
 import {MenuItem, Grid} from "@material-ui/core";
 import ContinueButton from "./continueButton";
 import {withStyles} from "@material-ui/core/styles";
@@ -32,7 +32,7 @@ class ShippingAddressForm extends Component {
     }
 
     handleSubmit = () => {
-        log.info(`[ShippingAddress] values = ${JSON.stringify(this.props.shippingAddressFormStore)}`)
+      
         // let formValues = this.props.signUpFormStore.values
         // let id = `${formValues.firstName}-${formValues.lastName}-${Math.floor(Date.now() / 1000)}`
 
@@ -157,7 +157,7 @@ class ShippingAddressForm extends Component {
             )
         }
 
-        log.info(`[ShippingAddress] Rendering ShippingAddress Component...`)
+        
 
         return (
             <>
