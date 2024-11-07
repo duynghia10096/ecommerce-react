@@ -48,7 +48,7 @@ class PaymentButton extends Component {
                     price: product.price,
                     quantity: this.props.addToCart.productQty[key],
                     stock: product.availableQuantity,
-                    imageURL: product.imageURL
+                    imageUrl: product.imageURL
                 };
             })
             const orderData = {
@@ -71,7 +71,7 @@ class PaymentButton extends Component {
 
             console.log(orderData);
             try {
-                const response = await axios.post('http://localhost:5000/api/order/saveOrder', orderData);
+                const response = await axios.post('http://34.207.80.123:5000/api/order/saveOrder', orderData);
                 if (response.status === 200) {
                     // Xử lý khi API trả về thành công
                     console.log('Order saved successfully', response.data);

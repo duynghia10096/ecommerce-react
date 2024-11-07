@@ -11,7 +11,7 @@ export const authServiceAPI = axios.create({
 })
 
 export const commonServiceAPI = axios.create({
-    baseURL: `http://localhost:5000/commondata`
+    baseURL: `http://34.207.80.123:5000/commondata`
 })
 
 export const searchSuggestionServiceAPI = axios.create({

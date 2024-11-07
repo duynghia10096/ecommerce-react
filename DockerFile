@@ -1,0 +1,19 @@
+# Base Package
+FROM node:14
+
+
+# Tạo thư mục làm việc cho ứng dụng
+WORKDIR /usr/src/app
+
+# Sao chép file package.json và package-lock.json từ my-react-app để cài dependencies
+COPY package*.json ./
+
+# Cài đặt dependencies
+RUN npm cache clean --force
+RUN npm install
+
+COPY . .
+EXPOSE 3000
+
+# Sử dụng lệnh khởi động ứng dụng
+CMD ["npm", "start"]
